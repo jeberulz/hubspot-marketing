@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useCallback } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -14,11 +14,13 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  CheckCircle,
 } from "lucide-react";
 import { segments } from "@/lib/data/segments";
 import { campaignsBySegment } from "@/lib/data/campaigns";
 import { frequencyBySegment } from "@/lib/data/frequency";
 import type { Campaign, MessageType } from "@/lib/types";
+import { useToast } from "@/components/ui/Toast";
 
 const messageColorMap: Record<MessageType, string> = {
   email: "bg-blue-500",
@@ -46,10 +48,21 @@ export default function SegmentDetailPage({
   const campaigns = campaignsBySegment[id] || [];
   const frequencyDays = frequencyBySegment[id] || [];
 
+  const { showToast } = useToast();
   const [guardrailsOpen, setGuardrailsOpen] = useState(true);
   const [emailLimit, setEmailLimit] = useState(4);
   const [smsLimit, setSmsLimit] = useState(2);
   const [whatsappLimit, setWhatsappLimit] = useState(2);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">("idle");
+
+  const handleSaveGuardrails = useCallback(() => {
+    setSaveStatus("saving");
+    setTimeout(() => {
+      setSaveStatus("saved");
+      showToast("Guardrails updated successfully.");
+      setTimeout(() => setSaveStatus("idle"), 2000);
+    }, 800);
+  }, [showToast]);
 
   return (
     <div className="p-10 flex-1 flex flex-col max-w-[1400px] w-full mx-auto pb-20">
@@ -515,8 +528,20 @@ export default function SegmentDetailPage({
             </div>
 
             <div className="mt-8 pt-5 border-t border-[#EAF0F6] flex justify-end">
-              <button className="bg-[#FF7A59] hover:bg-[#e86c4f] text-white px-5 py-2 rounded text-sm font-medium transition-colors shadow-sm">
-                Save guardrails
+              <button
+                onClick={handleSaveGuardrails}
+                disabled={saveStatus !== "idle"}
+                className="bg-[#FF7A59] hover:bg-[#e86c4f] text-white px-5 py-2 rounded text-sm font-medium transition-colors shadow-sm disabled:opacity-70 flex items-center gap-2"
+              >
+                {saveStatus === "saving" && (
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                )}
+                {saveStatus === "saved" && <CheckCircle size={14} />}
+                {saveStatus === "idle"
+                  ? "Save guardrails"
+                  : saveStatus === "saving"
+                  ? "Saving..."
+                  : "Saved"}
               </button>
             </div>
           </div>

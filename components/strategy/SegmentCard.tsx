@@ -43,7 +43,7 @@ export function SegmentCard({ segment }: { segment: Segment }) {
   return (
     <Link
       href={`/marketing/messages/segment/${segment.id}`}
-      className="bg-white border border-[#cbd6e2] rounded-lg p-6 shadow-sm hover:border-[#00A4BD] transition-colors cursor-pointer group flex flex-col"
+      className="bg-white border border-[#cbd6e2] rounded-lg p-6 shadow-sm hover:border-[#00A4BD] hover:shadow-md transition-all cursor-pointer group flex flex-col"
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-5">
@@ -56,7 +56,7 @@ export function SegmentCard({ segment }: { segment: Segment }) {
           </div>
         </div>
         <div
-          className={`flex items-center gap-1.5 ${config.textColor} ${config.bgColor} px-2.5 py-1 rounded-full text-xs font-medium border ${config.borderColor} shrink-0`}
+          className={`flex items-center gap-1.5 ${config.textColor} ${config.bgColor} px-2.5 py-1 rounded-full text-xs font-medium border ${config.borderColor} shrink-0 ${segment.status === "risk" ? "animate-pulse-risk" : ""}`}
         >
           <StatusIcon size={14} />
           {segment.statusLabel}

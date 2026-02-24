@@ -41,7 +41,7 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="w-[60px] bg-[#2D3E50] flex flex-col items-center py-4 border-r border-white/5 shrink-0 z-20">
+    <aside className="w-[56px] bg-[#2D3E50] flex flex-col items-center py-4 border-r border-white/5 shrink-0 z-20">
       {/* Logo */}
       <div className="mb-6 w-full flex justify-center">
         <HubSpotLogo />
