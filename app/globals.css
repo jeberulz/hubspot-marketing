@@ -15,3 +15,8 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #516F90;
 }
+
+/* Score gauge animation */
+@keyframes drawGauge {
+  from { stroke-dashoffset: 251; }
+}
