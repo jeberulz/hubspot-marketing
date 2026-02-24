@@ -30,9 +30,21 @@ export interface Campaign {
   type: "Automated" | "One-time";
   status: "Active" | "Sent" | "Paused";
   frequency: string;
+  msgsPerWeek: number;
   openRate: number | null;
   clickRate: number;
   aiScore: number;
+  emailId?: string;
+  isClickable: boolean;
+}
+
+export type MessageType = "email" | "sms" | "whatsapp";
+
+export interface FrequencyDay {
+  label: string;
+  summary?: string;
+  summaryHighlight?: boolean;
+  messages: MessageType[];
 }
 
 export interface Email {

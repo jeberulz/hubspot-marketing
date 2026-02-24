@@ -1,0 +1,42 @@
+import { FrequencyDay } from "@/lib/types";
+
+export const frequencyBySegment: Record<string, FrequencyDay[]> = {
+  "new-trial-users": [
+    {
+      label: "Mon 10",
+      summary: "2E, 1S",
+      messages: ["email", "email", "sms"],
+    },
+    { label: "Tue 11", messages: ["email"] },
+    {
+      label: "Wed 12",
+      summary: "2E, 1S, 1W",
+      summaryHighlight: true,
+      messages: ["email", "email", "sms", "whatsapp"],
+    },
+    { label: "Thu 13", messages: ["email"] },
+    { label: "Fri 14", messages: ["email", "whatsapp"] },
+    { label: "Sat 15", messages: [] },
+    { label: "Sun 16", messages: [] },
+    {
+      label: "Mon 17",
+      summary: "3E, 1S",
+      summaryHighlight: true,
+      messages: ["email", "email", "email", "sms"],
+    },
+    { label: "Tue 18", messages: ["email", "whatsapp"] },
+    {
+      label: "Wed 19",
+      summary: "2E, 1S",
+      messages: ["email", "email", "sms"],
+    },
+    { label: "Thu 20", messages: ["email"] },
+    {
+      label: "Fri 21",
+      summary: "2E, 1W",
+      messages: ["email", "email", "whatsapp"],
+    },
+    { label: "Sat 22", messages: [] },
+    { label: "Sun 23", messages: ["sms"] },
+  ],
+};

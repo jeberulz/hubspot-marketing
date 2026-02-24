@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* Custom scrollbar for tables/timelines */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F5F8FA;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd6e2;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #516F90;
+}
