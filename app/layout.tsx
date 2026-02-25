@@ -4,6 +4,7 @@ import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopNav } from "@/components/layout/TopNav";
 import { ToastProvider } from "@/components/ui/Toast";
+import { OnboardingGate } from "@/components/gate/OnboardingGate";
 
 const lexendDeca = Lexend_Deca({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         className={`${lexendDeca.className} bg-[#F5F8FA] text-[#33475B] h-screen w-screen overflow-hidden flex antialiased`}
       >
         <ToastProvider>
+          <OnboardingGate />
           <Sidebar />
           <main className="flex-1 flex flex-col min-w-0 bg-[#F5F8FA]">
             <TopNav />
