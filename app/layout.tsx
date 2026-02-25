@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { TopNav } from "@/components/layout/TopNav";
 import { ToastProvider } from "@/components/ui/Toast";
+import { OnboardingProvider } from "@/lib/onboarding/context";
+import { AppShell } from "@/components/layout/AppShell";
 
 const lexendDeca = Lexend_Deca({
   subsets: ["latin"],
@@ -25,15 +25,11 @@ export default function RootLayout({
       <body
         className={`${lexendDeca.className} bg-[#F5F8FA] text-[#33475B] h-screen w-screen overflow-hidden flex antialiased`}
       >
-        <ToastProvider>
-          <Sidebar />
-          <main className="flex-1 flex flex-col min-w-0 bg-[#F5F8FA]">
-            <TopNav />
-            <div className="flex-1 overflow-y-auto flex flex-col">
-              {children}
-            </div>
-          </main>
-        </ToastProvider>
+        <OnboardingProvider>
+          <ToastProvider>
+            <AppShell>{children}</AppShell>
+          </ToastProvider>
+        </OnboardingProvider>
       </body>
     </html>
   );

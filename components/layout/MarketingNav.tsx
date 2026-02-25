@@ -3,15 +3,19 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Sparkles } from "lucide-react";
+import { useOnboarding } from "@/lib/onboarding/context";
 
 export function MarketingNav() {
   const pathname = usePathname();
+  const { state } = useOnboarding();
 
   const isStrategy =
     pathname === "/marketing/messages" ||
     pathname.startsWith("/marketing/messages/segment");
   const isAllEmails = pathname === "/marketing/messages/emails";
   const isAIOptimize = pathname.startsWith("/marketing/messages/email/");
+
+  const showAnnotations = state.phase === "first-actions";
 
   return (
     <div className="bg-white border-b border-[#cbd6e2]/60 pt-4 px-10 shrink-0">
@@ -37,9 +41,15 @@ export function MarketingNav() {
           } transition-colors`}
         >
           Strategy
-          <span className="bg-purple-100 text-purple-700 text-xs px-1.5 py-0.5 rounded font-semibold tracking-wide">
-            NEW
-          </span>
+          {showAnnotations ? (
+            <span className="bg-[#FF7A59]/10 text-[#FF7A59] text-[10px] px-1.5 py-0.5 rounded font-semibold tracking-wide animate-gentle-pulse">
+              Start here
+            </span>
+          ) : (
+            <span className="bg-purple-100 text-purple-700 text-xs px-1.5 py-0.5 rounded font-semibold tracking-wide">
+              NEW
+            </span>
+          )}
         </Link>
         <Link
           href="/marketing/messages/emails"
@@ -61,6 +71,11 @@ export function MarketingNav() {
         >
           <Sparkles size={14} strokeWidth={1.5} className="text-purple-500" />
           AI Optimize
+          {showAnnotations && (
+            <span className="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.5 rounded font-semibold tracking-wide">
+              Try me
+            </span>
+          )}
         </Link>
       </div>
     </div>

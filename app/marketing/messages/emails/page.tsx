@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Search, ArrowUpRight, Mail } from "lucide-react";
 import { emails, emailNavItems } from "@/lib/data/emails";
+import { useOnboarding } from "@/lib/onboarding/context";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 function getAiScoreStyle(score: number) {
   if (score >= 80)
@@ -15,6 +17,34 @@ function getAiScoreStyle(score: number) {
 
 export default function AllEmailsPage() {
   const [search, setSearch] = useState("");
+  const { state, completeMilestone } = useOnboarding();
+  const [usingSampleData, setUsingSampleData] = useState(
+    state.phase !== "first-actions"
+  );
+
+  const handleUseSampleData = () => {
+    setUsingSampleData(true);
+    completeMilestone("usedAiOptimizer");
+  };
+
+  // Show empty state for first-actions users who haven't loaded sample data
+  if (!usingSampleData && state.phase === "first-actions") {
+    return (
+      <div className="p-10 flex-1 flex flex-col max-w-[1400px] w-full mx-auto">
+        <div className="flex-1 flex items-center justify-center">
+          <EmptyState
+            icon={Mail}
+            title="No emails yet"
+            description="Create your first email campaign to see AI-powered optimization scores here."
+            actionLabel="Create email"
+            onAction={handleUseSampleData}
+            secondaryLabel="Use sample emails"
+            onSecondaryAction={handleUseSampleData}
+          />
+        </div>
+      </div>
+    );
+  }
 
   const allEmails = emailNavItems
     .map((nav) => {
