@@ -12,6 +12,7 @@ import {
   BarChart2,
   Sparkles,
   Code2,
+  Layers,
 } from "lucide-react";
 
 function HubSpotLogo() {
@@ -48,7 +49,7 @@ export function Sidebar() {
       </div>
 
       {/* Navigation Icons */}
-      <nav className="flex flex-col gap-3 w-full px-2">
+      <nav className="flex flex-col gap-3 w-full px-2 flex-1">
         {navItems.map((item, i) => {
           if (item === "divider") {
             return (
@@ -84,6 +85,18 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Systems Strategy Link */}
+      <div className="w-full px-2 pb-2">
+        <div className="w-6 h-px bg-white/10 mx-auto mb-3" />
+        <a
+          href="/systems"
+          title="Systems Strategy"
+          className="p-2 flex justify-center w-full hover:bg-[#FF7A59]/20 rounded-md transition-colors text-[#FF7A59]"
+        >
+          <Layers size={20} strokeWidth={1.5} />
+        </a>
+      </div>
     </aside>
   );
 }

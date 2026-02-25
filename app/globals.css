@@ -102,3 +102,18 @@
 .animate-fade-in {
   animation: fadeIn 200ms ease-out;
 }
+
+/* Strategy page section reveal */
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.strategy-section {
+  animation: sectionReveal 400ms ease-out;
+}
