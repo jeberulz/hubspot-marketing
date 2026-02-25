@@ -508,8 +508,11 @@ export default function SystemsStrategyPage() {
   const [tocCollapsed, setTocCollapsed] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  /* Scroll spy */
+  /* Scroll spy – uses the scrollable content div as root */
   useEffect(() => {
+    const scrollRoot = mainRef.current;
+    if (!scrollRoot) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -518,10 +521,10 @@ export default function SystemsStrategyPage() {
           }
         });
       },
-      { rootMargin: "-100px 0px -60% 0px", threshold: 0 }
+      { root: scrollRoot, rootMargin: "-100px 0px -60% 0px", threshold: 0 }
     );
 
-    const sectionEls = document.querySelectorAll(".strategy-section");
+    const sectionEls = scrollRoot.querySelectorAll(".strategy-section");
     sectionEls.forEach((el) => {
       const sectionEl = el.querySelector("[id]");
       if (sectionEl) observer.observe(sectionEl);
@@ -536,7 +539,7 @@ export default function SystemsStrategyPage() {
   };
 
   return (
-    <div className="flex flex-1 min-h-0">
+    <div className="flex flex-1 min-h-0 overflow-hidden">
       {/* ──────── Floating TOC Sidebar ──────── */}
       <aside
         className={`shrink-0 border-r border-[#EAF0F6] bg-white transition-all duration-300 hidden lg:flex flex-col ${
