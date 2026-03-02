@@ -27,7 +27,7 @@ Be concise (2-4 sentences unless they ask for a rewrite). Give actionable advice
     ];
 
     const stream = await anthropic.messages.stream({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
       system: systemPrompt,
       messages,
