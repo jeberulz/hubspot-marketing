@@ -2,23 +2,13 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useOnboarding } from "@/lib/onboarding/context";
 
 export default function Home() {
-  const { state, isLoaded } = useOnboarding();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoaded) return;
-
-    if (state.phase === "welcome") {
-      router.replace("/welcome");
-    } else if (state.phase === "setup") {
-      router.replace("/setup");
-    } else {
-      router.replace("/marketing/messages");
-    }
-  }, [isLoaded, state.phase, router]);
+    router.replace("/marketing/messages");
+  }, [router]);
 
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-[#F5F8FA]">

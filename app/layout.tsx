@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/ui/Toast";
-import { OnboardingProvider } from "@/lib/onboarding/context";
 import { AppShell } from "@/components/layout/AppShell";
 
 const lexendDeca = Lexend_Deca({
@@ -25,11 +24,9 @@ export default function RootLayout({
       <body
         className={`${lexendDeca.className} bg-[#F5F8FA] text-[#33475B] h-screen w-screen overflow-hidden flex antialiased`}
       >
-        <OnboardingProvider>
-          <ToastProvider>
-            <AppShell>{children}</AppShell>
-          </ToastProvider>
-        </OnboardingProvider>
+        <ToastProvider>
+          <AppShell>{children}</AppShell>
+        </ToastProvider>
       </body>
     </html>
   );

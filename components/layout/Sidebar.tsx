@@ -16,7 +16,6 @@ import {
   Code2,
   Layers,
 } from "lucide-react";
-import { useOnboarding } from "@/lib/onboarding/context";
 
 function HubSpotLogo() {
   return (
@@ -44,9 +43,6 @@ const navItems = [
 ];
 
 export function Sidebar() {
-  const { state } = useOnboarding();
-  const isOnboarding = state.phase === "first-actions";
-
   return (
     <aside className="w-[56px] bg-[#2D3E50] flex flex-col items-center py-4 border-r border-white/5 shrink-0 z-20">
       {/* Logo */}
@@ -67,22 +63,15 @@ export function Sidebar() {
           }
 
           const Icon = item.icon;
-          const isMegaphone = item.icon === Megaphone;
-          const shouldDim = isOnboarding && !item.active;
 
           if (item.active) {
             return (
               <a
                 key={i}
                 href="#"
-                className={`relative bg-[#425b76] rounded-md p-2 flex justify-center w-full transition-colors ${
-                  isOnboarding ? "animate-gentle-pulse" : ""
-                }`}
+                className="relative bg-[#425b76] rounded-md p-2 flex justify-center w-full transition-colors"
               >
                 <Icon size={20} strokeWidth={1.5} className="text-[#00A4BD]" />
-                {isOnboarding && isMegaphone && (
-                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#FF7A59] border-2 border-[#2D3E50]" />
-                )}
               </a>
             );
           }
@@ -91,9 +80,7 @@ export function Sidebar() {
             <a
               key={i}
               href="#"
-              className={`p-2 flex justify-center w-full hover:bg-white/10 rounded-md transition-colors text-[#cbd6e2] ${
-                shouldDim ? "opacity-40" : ""
-              }`}
+              className="p-2 flex justify-center w-full hover:bg-white/10 rounded-md transition-colors text-[#cbd6e2]"
             >
               <Icon size={20} strokeWidth={1.5} />
             </a>
@@ -107,9 +94,7 @@ export function Sidebar() {
         <a
           href="/systems"
           title="Systems Strategy"
-          className={`p-2 flex justify-center w-full hover:bg-[#FF7A59]/20 rounded-md transition-colors text-[#FF7A59] ${
-            isOnboarding ? "opacity-40" : ""
-          }`}
+          className="p-2 flex justify-center w-full hover:bg-[#FF7A59]/20 rounded-md transition-colors text-[#FF7A59]"
         >
           <Layers size={20} strokeWidth={1.5} />
         </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Layers,
   Users,
@@ -506,12 +506,12 @@ function MicroserviceDiagram() {
 export default function SystemsStrategyPage() {
   const [activeSection, setActiveSection] = useState("executive");
   const [tocCollapsed, setTocCollapsed] = useState(false);
-  const mainRef = useRef<HTMLDivElement>(null);
 
-  /* Scroll spy – uses the scrollable content div as root */
+  /* Scroll spy – uses AppShell's scroll container as root */
   useEffect(() => {
-    const scrollRoot = mainRef.current;
-    if (!scrollRoot) return;
+    const scrollContainer = document.querySelector<HTMLElement>(
+      "main > .overflow-y-auto"
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -521,10 +521,14 @@ export default function SystemsStrategyPage() {
           }
         });
       },
-      { root: scrollRoot, rootMargin: "-100px 0px -60% 0px", threshold: 0 }
+      {
+        root: scrollContainer,
+        rootMargin: "-100px 0px -60% 0px",
+        threshold: 0,
+      }
     );
 
-    const sectionEls = scrollRoot.querySelectorAll(".strategy-section");
+    const sectionEls = document.querySelectorAll(".strategy-section");
     sectionEls.forEach((el) => {
       const sectionEl = el.querySelector("[id]");
       if (sectionEl) observer.observe(sectionEl);
@@ -539,10 +543,10 @@ export default function SystemsStrategyPage() {
   };
 
   return (
-    <div className="flex flex-1 min-h-0 overflow-hidden">
-      {/* ──────── Floating TOC Sidebar ──────── */}
+    <>
+      {/* ──────── Fixed TOC Sidebar ──────── */}
       <aside
-        className={`shrink-0 border-r border-[#EAF0F6] bg-white transition-all duration-300 hidden lg:flex flex-col ${
+        className={`fixed top-[56px] left-[56px] z-30 h-[calc(100vh-56px)] border-r border-[#EAF0F6] bg-white transition-all duration-300 hidden lg:flex flex-col ${
           tocCollapsed ? "w-[56px]" : "w-[260px]"
         }`}
       >
@@ -603,7 +607,11 @@ export default function SystemsStrategyPage() {
       </aside>
 
       {/* ──────── Main Content ──────── */}
-      <div ref={mainRef} className="flex-1 overflow-y-auto custom-scrollbar">
+      <div
+        className={`flex-1 flex flex-col transition-all duration-300 ${
+          tocCollapsed ? "lg:pl-[56px]" : "lg:pl-[260px]"
+        }`}
+      >
         {/* Hero Header */}
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#2D3E50] via-[#33475B] to-[#1e2a38]" />
@@ -1595,6 +1603,6 @@ GET    /v3/marketing/contacts/{contactId}/message-load
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
