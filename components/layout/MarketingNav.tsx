@@ -11,7 +11,7 @@ export function MarketingNav() {
     pathname === "/marketing/messages" ||
     pathname.startsWith("/marketing/messages/segment");
   const isAllEmails = pathname === "/marketing/messages/emails";
-  const isAIOptimize = pathname.startsWith("/marketing/messages/email/");
+  const isAIOptimize = pathname === "/marketing/messages/ai-optimize";
 
   return (
     <div className="bg-white border-b border-[#cbd6e2]/60 pt-4 px-10 shrink-0">
@@ -52,7 +52,7 @@ export function MarketingNav() {
           All Emails
         </Link>
         <Link
-          href="/marketing/messages/email/re-engagement-inactive-trials"
+          href="/marketing/messages/ai-optimize"
           className={`pb-3 font-medium text-sm flex items-center gap-1.5 border-b-2 ${
             isAIOptimize
               ? "border-[#00A4BD] text-[#33475B] font-semibold"
